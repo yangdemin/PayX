@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity ="top|left"
+    android:background="@drawable/lab_line"
+    tools:context=".MainActivity">
+
+    <!-- UUID行-->
+    <TableLayout
+        android:id="@+id/TabUUID"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="@dimen/uuid_total_width"
+        android:layout_height="@dimen/uuid_total_height"
+        android:orientation="horizontal"
+        android:visibility="visible">
+        <TableRow>
+            <TextView
+                android:layout_width="@dimen/uuid_text_width"
+                android:layout_height="@dimen/uuid_text_height"
+                android:textStyle="bold"
+                android:textSize="@dimen/uuid_text_size"
+                android:text="@string/UUID" />
+            <TextView
+                android:id="@+id/uuidNum"
+                android:layout_width="@dimen/uuid_edit_width"
+                android:layout_height="@dimen/uuid_edit_height"
+                android:textSize="@dimen/uuid_edit_size"
+                android:textIsSelectable="true"
+                android:focusable="true"
+                android:enabled="true"
+                android:longClickable="true"
+                android:inputType="none"/>
+        </TableRow>
+    </TableLayout>
+
+    <!-- 第一行 items-->
+    <TableLayout
+        android:id="@+id/TableL0"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="@dimen/table_text_size"
+        android:layout_width="@dimen/table_line_width"
+        android:layout_height="@dimen/table_line_height"
+        android:scrollHorizontally="true"
+        android:visibility="visible">
+
+        <TableRow>
+            <TextView
+                android:layout_width="@dimen/table_row1_width"
+                android:layout_height="@dimen/table_height"
+                android:textStyle="bold"
+                android:text="@string/l0r0" />
+            <TextView
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height"
+                android:textStyle="bold"
+                android:text="@string/l0r1" />
+            <TextView
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height"
+                android:textStyle="bold"
+                android:text="@string/l0r2" />
+            <TextView
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height"
+                android:textStyle="bold"
+                android:text="@string/l0r3" />
+        </TableRow>
+    </TableLayout>
+
+    <!--第二行 wechat-->
+    <TableLayout
+        android:id="@+id/TabWechat"
+        android:layout_marginLeft="5dp"
+        android:layout_width="@dimen/table_line_width"
+        android:layout_height="@dimen/table_line_height"
+        android:textSize="@dimen/table_size"
+        android:visibility="visible">
+        <TableRow  android:layout_gravity="bottom|left">
+            <TextView
+                android:layout_width="@dimen/table_row1_width"
+                android:layout_height="@dimen/table_row1_height"
+                android:textSize="@dimen/table_row1_size"
+                android:text="@string/l1Wechat" />
+            <TextView
+                android:id="@+id/WechatAccount"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height"/>
+            <TextView
+                android:id="@+id/WechatName"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+            <TextView
+                android:id="@+id/WechatLogin"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height"/>
+        </TableRow>
+    </TableLayout>
+
+    <!--第三行Alipay-->
+    <TableLayout
+        android:id="@+id/TabAlipay"
+        android:textSize="@dimen/table_size"
+        android:layout_width="@dimen/table_line_width"
+        android:layout_height="@dimen/table_line_height"
+        android:layout_marginLeft="5dp"
+        android:visibility="visible">
+        <TableRow>
+            <TextView
+                android:layout_width="@dimen/table_row1_width"
+                android:layout_height="@dimen/table_row1_height"
+                android:textSize="@dimen/table_row1_size"
+                android:text="@string/l2Alipay"/>
+            <TextView
+                android:id="@+id/AlipayAccount"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+            <TextView
+                android:id="@+id/AlipayName"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+            <TextView
+                android:id="@+id/AlipayLogin"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+        </TableRow>
+    </TableLayout>
+
+    <!--第四行QQpay-->
+    <TableLayout
+        android:id="@+id/TabQQpay"
+        android:textSize="@dimen/table_size"
+        android:layout_width="@dimen/table_line_width"
+        android:layout_height="@dimen/table_line_height"
+        android:layout_marginLeft="5dp"
+        android:visibility="visible">
+        <TableRow>
+            <TextView
+                android:layout_width="@dimen/table_row1_width"
+                android:layout_height="@dimen/table_row1_height"
+                android:height="@dimen/table_height"
+                android:text="@string/l3QQ" />
+            <TextView
+                android:id="@+id/QQAccount"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+            <TextView
+                android:id="@+id/QQName"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+            <TextView
+                android:id="@+id/QQLogin"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+        </TableRow>
+    </TableLayout>
+
+    <!--第五行unicoin pay-->
+    <TableLayout
+        android:id="@+id/TabUnionPay"
+        android:textSize="@dimen/table_size"
+        android:layout_width="@dimen/table_line_width"
+        android:layout_height="@dimen/table_line_height"
+        android:layout_marginLeft="5dp"
+        android:visibility="visible" >
+        <TableRow>
+            <TextView
+                android:layout_width="@dimen/table_row1_width"
+                android:layout_height="@dimen/table_row1_height"
+                android:textSize="@dimen/table_row1_size"
+                android:text="@string/l4UnionPay" />
+            <TextView
+                android:id="@+id/UnionAccount"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+            <TextView
+                android:id="@+id/UnionName"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height"/>
+            <TextView
+                android:id="@+id/UnionLogin"
+                android:inputType="text"
+                android:layout_width="@dimen/table_width"
+                android:layout_height="@dimen/table_height" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+        <Button
+            android:layout_marginLeft="30dp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="@string/active"/>
+        <ToggleButton
+            android:layout_marginLeft="120dp"
+            android:checked="false"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:text="@string/if_bind"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="@dimen/log_width"
+        android:layout_height="@dimen/log_height"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
+        android:height="@dimen/table_height"
+        android:ellipsize="marquee"
+        android:lines="50"
+        android:scrollHorizontally="true"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowRadius="10"
+        android:singleLine="false"
+        android:textColor="@color/colorAccent"
+        android:background="@drawable/text_line"
+        android:textSize="18dp"
+        android:text="wechat,alipay,qq,unionpay log"
+        />
+
+</LinearLayout>

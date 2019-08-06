@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">XpayWatch</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="UUID">UUID:</string>
+    <string name="l0r0">app name</string>
+    <string name="l0r1">account</string>
+    <string name="l0r2">usr name</string>
+    <string name="l0r3">status</string>
+    <string name="l1Wechat">Wechat</string>
+    <string name="l2Alipay">Alipay</string>
+    <string name="l3QQ">QQ</string>
+    <string name="l4UnionPay">UinonPay</string>
+
+    <string name="active">激活UUID</string>
+    <string name="if_bind">绑定</string>
+
+
+
+</resources>

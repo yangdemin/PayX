@@ -1,0 +1,35 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="table_text_size">40sp</dimen>
+
+    <dimen name="app_name_width">400dp</dimen>
+    <dimen name="app_name_height">50sp</dimen>
+
+    <!-- uuid line -->
+    <dimen name="uuid_total_width">400sp</dimen>
+    <dimen name="uuid_total_height">30sp</dimen>
+    <dimen name="uuid_text_width">70sp</dimen>
+    <dimen name="uuid_text_height">30sp</dimen>
+    <dimen name="uuid_text_size">25sp</dimen>
+    <dimen name="uuid_edit_width">300sp</dimen>
+    <dimen name="uuid_edit_height">40sp</dimen>
+    <dimen name="uuid_edit_size">16sp</dimen>
+
+    <!-- Table app line 1-->
+    <dimen name="table_line_width">400sp</dimen>
+    <dimen name="table_line_height">30sp</dimen>
+    <dimen name="table_line_size">18sp</dimen>
+
+    <!-- Table app line 2,3,4-->
+    <dimen name="table_row1_size">16sp</dimen>
+    <dimen name="table_row1_width">80sp</dimen>
+    <dimen name="table_row1_height">30sp</dimen>
+
+    <dimen name="table_width">100sp</dimen>
+    <dimen name="table_height">30sp</dimen>
+    <dimen name="table_size">16sp</dimen>
+
+    <dimen name="log_width">340sp</dimen>
+    <dimen name="log_height">250sp</dimen>
+
+</resources>
