@@ -4,171 +4,115 @@ package com.mingyi.xpaywatch;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import androidx.recyclerview.widget.SortedList;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import static android.content.ContentValues.TAG;
 import static com.orhanobut.logger.Logger.e;
+import  com.mingyi.xpaywatch.Reception;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 class HeartBeatCtrl {
 
     private Context mContext;
+    // private static final String BaseUrl = "http://api.wanshangpay.com/";
+    private static final String BaseUrl = "http:192.168.16.174:5757/weapp/";
     private static final String heartUrl = "http://api.wanshangpay.com/soft/heartbeat";
-    private static final String access_token = "973e365088ac177e6729143fc7ad0772";
+    private static final String access_token = "973e365088ac177e6729143fc7";
+    // private static final String access_token = "973e365088ac177e6729143fc7ad0772";
     private static final String data = "[{'type':'wechat','account':'test1'}]";
     private static final String uuid = "973e365088ac177e6729143fc7ad0772";
 
-    private HeartBeatCtrl() {
-    }
+    public void request() {
 
-    ;
+        //步骤4:创建Retrofit对象
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://fy.iciba.com/") // 设置 网络请求 Url
+                .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
+                .build();
+
+        // 步骤5:创建 网络请求接口 的实例
+        GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
+
+        //对 发送请求 进行封装
+        Call<Reception> call = request.getCall();
+
+        //步骤6:发送网络请求(异步)
+        call.enqueue(new Callback<Reception>(){
+            //请求成功时回调
+            @Override
+            public void onResponse(Call<Reception> call, Response<Reception> response) {
+                // 步骤7：处理返回的数据结果
+                response.body().show();
+            }
+
+            //请求失败时回调
+            @Override
+            public void onFailure(Call<Reception> call, Throwable throwable) {
+                System.out.println("连接失败");
+            }
+        });
+    }
 
     //send heart
-    public void sendHeart(String uuid, String msg) {
+    public void sendHeart() {
+//步骤4:创建Retrofit对象
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BaseUrl) // 设置 网络请求 Url
+                .addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
+                .build();
 
-    }
+        // 步骤5:创建 网络请求接口 的实例
+        GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
 
-    public void connect() {
-        Logger.d("准备链接...");
-        InetAddress serverAddr;
+        HeartBeatData entity = new HeartBeatData();
+        entity.access_token = access_token;
+        entity.uuid = uuid;
         try {
-            socket = new Socket(Bitmap.Config.Host, Bitmap.Config.SockectPort);
-            _connect = true;
-            mReceiveThread = new ReceiveThread();
-            receiveStop = false;
-            mReceiveThread.start();
-            LogUtil.e(TAG, "链接成功.");
-
-        } catch (Exception e) {
-            Logger.e(TAG, "链接出错." + e.getMessage().toString());
-            e.printStackTrace();
+            JSONObject Jitem = new JSONObject();
+            JSONArray gResTable = new JSONArray();
+            Jitem.put("type".toString(), "wechat".toString());
+            Jitem.put("account", "test1");
+            gResTable.put(Jitem);
+            entity.data = gResTable;
+        }catch (Exception e){
+            System.out.println(e);
         }
+
+        System.out.println(">>>entity:"+ entity.data);
+        //对 发送请求 进行封装
+        Call<Reception> call = request.postHeartBeat(entity);
+
+        //步骤6:发送网络请求(异步)
+        call.enqueue(new Callback<Reception>(){
+            //请求成功时回调
+            @Override
+            public void onResponse(Call<Reception> call, Response<Reception> response) {
+                // 步骤7：处理返回的数据结果
+                response.body().show();
+            }
+
+            //请求失败时回调
+            @Override
+            public void onFailure(Call<Reception> call, Throwable throwable) {
+                System.out.println("连接失败");
+            }
+        });
     }
 }
-    private class ReceiveThread extends Thread {
-        private byte[] buf;
-        private String str = null;
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    // LogUtil.e(TAG, "监听中...:"+socket.isConnected());
-                    if (socket != null && socket.isConnected()) {
-
-                        if (!socket.isInputShutdown()) {
-                            BufferedReader inStream = new BufferedReader(
-                                    new InputStreamReader(
-                                            socket.getInputStream()));
-                            String content = inStream.readLine();
-                            if (content == null)
-                                continue;
-                            Logger.e(TAG, "收到信息:" + content);
-                            Logger.e(TAG, "信息长度:" + content.length());
-                            if (!content.startsWith("CMD:"))
-                                continue;
-                            int spacePos = content.indexOf(" ");
-                            if (spacePos == -1)
-                                continue;
-                            String cmd = content.substring(4, spacePos);
-//                            String body = StringUtil.DecodeBase64(content
-//                                    .substring(spacePos));
-                            String body = content.substring(spacePos).trim();
-                            Logger.e(TAG, "收到信息(CMD):" + cmd);
-                            Logger.e(TAG, "收到信息(BODY):" + body);
-                            if (cmd.equals("LOGIN")) {
-                                // 登录
-                                ReceiveLogin(body);
-                                continue;
-                            }
-                            if (cmd.equals("KEEPLIVE")) {
-                                if (!body.equals("1")) {
-                                    Log.e(TAG, "心跳时检测到异常，重新登录!");
-                                    socket = null;
-                                    KeepAlive();
-                                } else {
-                                    Date now = Calendar.getInstance().getTime();
-                                    lastKeepAliveOkTime = now;
-                                }
-                                continue;
-                            }
-                        }
-                    } else {
-                        if (socket != null)
-                            Logger.e(TAG, "链接状态:" + socket.isConnected());
-                    }
-
-                } catch (Exception e) {
-                    Logger.e(TAG, "监听出错:" + e.toString());
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        //check heart
-
-        public void KeepAlive() {
-            // 判断socket是否已断开,断开就重连
-            if (lastKeepAliveOkTime != null) {
-                Logger.e(
-                        TAG,
-                        "上次心跳成功时间:"
-                                + DateTimeUtil.dateFormat(lastKeepAliveOkTime,
-                                "yyyy-MM-dd HH:mm:ss"));
-                Date now = Calendar.getInstance().getTime();
-                long between = (now.getTime() - lastKeepAliveOkTime.getTime());// 得到两者的毫秒数
-                if (between > 60 * 1000) {
-                    Logger.e(TAG, "心跳异常超过1分钟,重新连接:");
-                    lastKeepAliveOkTime = null;
-                    socket = null;
-                }
-
-            } else {
-                lastKeepAliveOkTime = Calendar.getInstance().getTime();
-            }
-
-            if (!checkIsAlive()) {
-                Logger.e(TAG, "链接已断开,重新连接.");
-                connect();
-                if (loginPara != null)
-                    Login(loginPara);
-            }
-
-            //此方法是检测是否连接
-            boolean checkIsAlive () {
-                if (socket == null)
-                    return false;
-                try {
-                    socket.sendUrgentData(0xFF);
-                } catch (IOException e) {
-                    return false;
-                }
-                return true;
-
-            }
-            //然后发送数据的方法
-            public void sendmessage (String msg){
-                if (!checkIsAlive())
-                    return;
-                Logger.e(TAG, "准备发送消息:" + msg);
-                try {
-                    if (socket != null && socket.isConnected()) {
-                        if (!socket.isOutputShutdown()) {
-                            PrintWriter outStream = new PrintWriter(new BufferedWriter(
-                                    new OutputStreamWriter(socket.getOutputStream())),
-                                    true);
-
-                            outStream.print(msg + (char) 13 + (char) 10);
-                            outStream.flush();
-                        }
-                    }
-                    Logger.e(TAG, "发送成功!");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }

@@ -25,7 +25,7 @@ import android.view.MenuItem;
 import android.provider.Settings;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import com.mingyi.xpaywatch.HeartBeatCtrl;
 import java.security.Timestamp;
 import java.util.UUID;
 
@@ -81,9 +81,10 @@ public class MainActivity extends AppCompatActivity {
         mTextL4R3.setText("Yes");
 
 
-        initLogger(TAG);
-        Logger.d("执行了 onCreate");
+        HeartBeatCtrl netCtrl = new HeartBeatCtrl();
 
+        // netCtrl.request();
+        netCtrl.sendHeart();
 //        //将文本框1的文本赋给文本框2
 //        EditText editText2 =(EditText)findViewById(R.id.editText2);
 //        editText2.setText(str1.toCharArray(), 0, str1.length());
